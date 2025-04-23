@@ -66,8 +66,12 @@ const widgetInfo: Record<string, WidgetInfo> = {
     icon: "🖥️",
   },
 }
-
-export function WidgetSelector({ onClose, onSelect, widgetTypes }) {
+interface WidgetSelectorProps {
+  onClose: () => void
+  onSelect: (widgetType: string) => void
+  widgetTypes: string[]
+}
+export function WidgetSelector({ onClose, onSelect, widgetTypes }: WidgetSelectorProps) {
   const [searchTerm, setSearchTerm] = useState("")
 
   const filteredWidgets = widgetTypes.filter(

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, ReactNode, JSX, SetStateAction } from "react"
 // import { Responsive, WidthProvider } from "react-grid-layout"
+
 import "react-grid-layout/css/styles.css"
 import "react-resizable/css/styles.css"
 import { Plus, Edit, Save } from "lucide-react"
@@ -23,7 +24,8 @@ import { WidgetSelector } from "@/components/widget-selector"
 import { WidgetSettings } from "@/components/widget-settings"
 import { widget, WidgetInfo, widgetLayout } from "@/types/widgets"
 import dynamic from "next/dynamic"
-const ResponsiveReactGridLayout = dynamic(
+import type { ResponsiveProps } from "react-grid-layout";
+const ResponsiveReactGridLayout = dynamic<ResponsiveProps>(
   () => import("@/components/ResponsiveGridLayout"),
   { ssr: false }
 );
@@ -338,7 +340,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="px-6 mx-auto py-6 absolute inset-0 h-full w-full bg-white bg-[radial-gradient(#6551F3_1px,transparent_1px)] [background-size:16px_16px]">
+    <div className="px-6 mx-auto py-6  h-full flex-1  bg-white bg-[radial-gradient(#6551F3_1px,transparent_1px)] [background-size:16px_16px]">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl  text-gray-900 font-extralight">Hey, Darsh</h1>
         <div className="flex gap-2">
@@ -366,9 +368,9 @@ export default function Dashboard() {
       </div>
 
       <ResponsiveReactGridLayout
-        className="layout"
+        className="layout flex flex-1"
         layouts={layouts}
-        breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480 }}
+        breakpoints={{ lg: 1100, md: 996, sm: 768, xs: 480 }}
         cols={{ lg: 12, md: 6, sm: 2, xs: 1 }}
         rowHeight={100}
         onLayoutChange={handleLayoutChange}
