@@ -4,8 +4,21 @@ import { widgetLayout } from '@/types/widgets';
 import { eq } from 'drizzle-orm';
 import { NextRequest } from 'next/server';
 
-export async function GET(req: NextRequest,context: { params: { userid: string } }) {
-  const { userid } = context.params;
+
+export async function GET(req: NextRequest) {
+  const url = new URL(req.url);
+  const segments = url.pathname.split('/');
+  const userid = segments[segments.length - 1]
+
+  if(isNaN(Number(userid)) || !userid){
+    const resp: response = {
+      status: 400,
+      message: "Invalid user id",
+      data: null
+    }
+    return new Response(JSON.stringify(resp), { status: 400 })
+  }
+
   const resp: response = {
     status: 200,
     message: "Success",

@@ -3,8 +3,13 @@
 import { useState, useEffect } from "react"
 import { CheckSquare, Square, Plus, Trash } from "lucide-react"
 
+interface Task {
+  id: number
+  text: string
+  completed: boolean
+}
 export function TaskChecklist() {
-  const [tasks, setTasks] = useState(() => {
+  const [tasks, setTasks] = useState<Task[]>(() => {
     if (typeof window !== "undefined") {
       const savedTasks = localStorage.getItem("dashboard-tasks")
       return savedTasks
@@ -29,7 +34,7 @@ export function TaskChecklist() {
     localStorage.setItem("dashboard-tasks", JSON.stringify(tasks))
   }, [tasks])
 
-  const toggleTask = (id) => {
+  const toggleTask = (id:number) => {
     setTasks(tasks.map((task) => (task.id === id ? { ...task, completed: !task.completed } : task)))
   }
 
@@ -48,7 +53,7 @@ export function TaskChecklist() {
     }
   }
 
-  const removeTask = (id) => {
+  const removeTask = (id:number) => {
     setTasks(tasks.filter((task) => task.id !== id))
   }
 

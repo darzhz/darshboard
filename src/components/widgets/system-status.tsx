@@ -3,14 +3,31 @@
 import { useState, useEffect } from "react"
 import { CheckCircle, AlertCircle, XCircle } from "lucide-react"
 
-const statusTypes = {
+// Define types for the status structure
+interface StatusType {
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
+  color: string
+  bg: string
+}
+
+// Define the structure for the system
+interface System {
+  id: number
+  name: string
+  status: "online" | "warning" | "offline"
+  metric: string
+}
+
+// Define the status types mapping
+const statusTypes: Record<string, StatusType> = {
   online: { icon: CheckCircle, color: "text-green-500", bg: "bg-green-50" },
   warning: { icon: AlertCircle, color: "text-yellow-500", bg: "bg-yellow-50" },
   offline: { icon: XCircle, color: "text-red-500", bg: "bg-red-50" },
 }
 
-const generateSystemStatus = () => {
-  const statuses = ["online", "warning", "offline"]
+// Generate random system status
+const generateSystemStatus = (): System[] => {
+  const statuses: ("online" | "warning" | "offline")[] = ["online", "warning", "offline"]
 
   return [
     {
@@ -34,14 +51,14 @@ const generateSystemStatus = () => {
     {
       id: 4,
       name: "Storage",
-      status: statuses[Math.floor(Math.random() * 3)],
+      status: statuses[Math.floor(Math.random() * 3)], // Could be any status
       metric: "Usage: 68%",
     },
   ]
 }
 
 export function SystemStatus() {
-  const [systems, setSystems] = useState([])
+  const [systems, setSystems] = useState<System[]>([])
 
   useEffect(() => {
     setSystems(generateSystemStatus())

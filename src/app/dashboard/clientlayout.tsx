@@ -3,16 +3,29 @@
 import { useState } from 'react'
 import { CustomSidebar, SidebarBody, SidebarLink } from '@/components/ui/customsidebar'
 import { cn } from '@/lib/utils'
-import { HamIcon, Hammer } from 'lucide-react';
-import { motion } from "motion/react";
+import { HamIcon, Hammer, LogOut } from 'lucide-react';
+import Image from 'next/image'
 import {
     Github,
     Link as LinkIcon,
     Linkedin,
     Mail,
   } from "lucide-react";
+import { useRouter } from 'next/navigation';
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
+    const router = useRouter();
+    const triggerLogout = (e: React.MouseEvent) => {
+      console.log("triggerLogout");
+      e.stopPropagation();
+      localStorage.removeItem("dashboard-layout");
+      sessionStorage.removeItem("authToken");
+      sessionStorage.removeItem("userId");
+      sessionStorage.removeItem("name");
+       fetch('/api/auth/logout').then(() => {
+        router.push('/');
+       })
+    }
     const [open, setOpen] = useState(false);
       const links = [
         {
@@ -47,7 +60,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       
   return <div
       className={cn(
-        "mx-auto flex w-full max-w-7xl flex-1 flex-col overflow-hidden rounded-md border border-neutral-200 bg-gray-100 md:flex-row dark:border-neutral-700 dark:bg-neutral-800",
+        "mx-auto flex w-full  flex-1 flex-col overflow-hidden rounded-md border border-neutral-200 bg-gray-100 md:flex-row dark:border-neutral-700 dark:bg-neutral-800",
         "h-screen", 
       )}
     >
@@ -59,6 +72,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
               ))}
+              <div onClick={triggerLogout}>
+              <SidebarLink link={{ label: "Logout", href: "#", icon: <LogOut className="h-5 w-5 shrink-0 text-[#6551F3] dark:text-neutral-200" /> }} />
+              </div>
             </div>
           </div>
           <div>
@@ -67,7 +83,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                 label: "Darsh Shyam",
                 href: "https://darzhz.github.io/",
                 icon: (
-                  <img
+                  <Image
                     src="https://avatars.githubusercontent.com/u/68496521?s=40&v=4"
                     className="h-7 w-7 shrink-0 rounded-full"
                     width={50}

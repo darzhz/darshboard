@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { CustomSidebar } from '@/components/ui/customsidebar'
 
 export const metadata: Metadata = {
   title: 'DarshBoard',

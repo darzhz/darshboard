@@ -1,16 +1,21 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Cloud, CloudRain, Sun, CloudSun, CloudSnow } from "lucide-react"
+import { Cloud, CloudRain, Sun, CloudSun, CloudSnow, LucideIcon } from "lucide-react"
 
-const weatherIcons = {
+const weatherIcons: { [key: string]: LucideIcon } = {
   sunny: Sun,
   cloudy: Cloud,
   "partly-cloudy": CloudSun,
   rainy: CloudRain,
   snowy: CloudSnow,
 }
-
+interface weather{
+  type: string
+  temp: number
+  location: string
+  description: string
+}
 const weatherConditions = [
   { type: "sunny", temp: 28, location: "Mumbai", description: "Sunny" },
   { type: "cloudy", temp: 18, location: "Delhi", description: "Cloudy" },
@@ -20,7 +25,7 @@ const weatherConditions = [
 ]
 
 export function Weather() {
-  const [weather, setWeather] = useState(weatherConditions[0])
+  const [weather, setWeather] = useState<weather>(weatherConditions[0])
   const [location, setLocation] = useState("Mumbai")
 
   useEffect(() => {

@@ -3,9 +3,15 @@
 import { useState, useEffect } from "react"
 import { AreaChart, Area, ResponsiveContainer, XAxis } from "recharts"
 
+// Define the type for the data objects
+interface DataItem {
+  name: string
+  value: number
+}
+
 // Generate random data for the past 7 days
-const generateData = () => {
-  const data = []
+const generateData = (): DataItem[] => {
+  const data: DataItem[] = []
   const today = new Date()
 
   for (let i = 6; i >= 0; i--) {
@@ -21,8 +27,12 @@ const generateData = () => {
   return data
 }
 
-export function MiniTrendGraph({ title = "Daily Visitors" }) {
-  const [data, setData] = useState([])
+interface MiniTrendGraphProps {
+  title?: string
+}
+
+export function MiniTrendGraph({ title = "Daily Visitors" }: MiniTrendGraphProps) {
+  const [data, setData] = useState<DataItem[]>([]) // type the state for data
 
   useEffect(() => {
     setData(generateData())

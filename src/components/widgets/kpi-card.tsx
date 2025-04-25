@@ -24,7 +24,6 @@ export function KpiCard({ title = "Total Sales", value = "₹1,24,000", icon = "
       const height = container.offsetHeight
       // Icon size is 25% of container height, but clamped
       const newSize = Math.max(60, Math.min(100, height * 0.25))
-      console.log(newSize)
       setIconSize(newSize)
     }
 

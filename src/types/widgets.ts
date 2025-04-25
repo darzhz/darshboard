@@ -1,9 +1,11 @@
+import { Layout, Layouts } from "react-grid-layout";
+
 export interface WidgetInfo {
     name: string
     description: string
     icon: string
 }
-export interface widget{
+export interface widget extends Layout {
     i: string;
     x: number;
     y: number;
@@ -19,9 +21,10 @@ export interface widget{
     items?: string[];
   }
   
- export interface widgetLayout{
+ export interface widgetLayout extends Layouts{
     lg: widget[];
     md: widget[];
     sm: widget[];
     xs: widget[];
+    [key: string]: widget[];
   }

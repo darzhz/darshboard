@@ -3,8 +3,15 @@
 import { useState, useEffect } from "react"
 import { Clock } from "lucide-react"
 
+// Define the type for an individual activity item
+interface Activity {
+  id: number
+  activity: string
+  time: string
+}
+
 // Generate random activities
-const generateActivities = () => {
+const generateActivities = (): Activity[] => {
   const activities = [
     "Updated dashboard layout",
     "Added new KPI widget",
@@ -37,7 +44,7 @@ const generateActivities = () => {
 }
 
 export function RecentActivity() {
-  const [activities, setActivities] = useState([])
+  const [activities, setActivities] = useState<Activity[]>([]) // type the state for activities
 
   useEffect(() => {
     setActivities(generateActivities())

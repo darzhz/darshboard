@@ -3,8 +3,17 @@
 import { useState, useEffect } from "react"
 import { CalendarIcon } from "lucide-react"
 
+// Define the event type
+interface Event {
+  id: string
+  title: string
+  date: Date
+  formattedTime: string
+  formattedDate: string
+}
+
 // Generate random events for the week
-const generateEvents = () => {
+const generateEvents = (): Event[] => {
   const events = [
     "Team Meeting",
     "Client Call",
@@ -17,7 +26,7 @@ const generateEvents = () => {
   ]
 
   const today = new Date()
-  const weekEvents = []
+  const weekEvents: Event[] = []
 
   for (let i = 0; i < 5; i++) {
     const date = new Date(today)
@@ -45,8 +54,8 @@ const generateEvents = () => {
 }
 
 export function CalendarEvents() {
-  const [events, setEvents] = useState([])
-  const [view, setView] = useState("today")
+  const [events, setEvents] = useState<Event[]>([]) // type the state for events
+  const [view, setView] = useState<"today" | "week">("today") // type the view state
 
   useEffect(() => {
     setEvents(generateEvents())
@@ -63,7 +72,7 @@ export function CalendarEvents() {
         <select
           className="rounded border border-gray-200 px-2 py-1 text-xs"
           value={view}
-          onChange={(e) => setView(e.target.value)}
+          onChange={(e) => setView(e.target.value as "today" | "week")} // typecast the value
         >
           <option value="today">Today</option>
           <option value="week">This Week</option>

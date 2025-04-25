@@ -40,7 +40,7 @@ export function QuoteOfTheDay() {
       <h3 className="mb-2 text-sm font-medium text-gray-500">Quote of the Day</h3>
       <div className="flex flex-1 flex-col justify-center">
         <Quote className="mb-2 h-6 w-6 text-[#6551F3]" />
-        <p className="text-sm italic">"{quote.text}"</p>
+        <p className="text-sm italic">&quot;{quote.text} &ldquo;</p>
         <p className="mt-2 text-right text-xs font-medium">— {quote.author}</p>
       </div>
     </div>

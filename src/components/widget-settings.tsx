@@ -1,21 +1,26 @@
 "use client"
 
-import { X } from "lucide-react"
+// import { X } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Slider } from "@/components/ui/slider"
 
-export function WidgetSettings({ widget, opacity, onClose, onOpacityChange }) {
+export interface WidgetSettingsProps {
+  opacity: number
+  onClose: () => void
+  onOpacityChange: (opacity: number) => void
+}
+export function WidgetSettings({  opacity, onClose, onOpacityChange }: WidgetSettingsProps) {
   return (
     <Dialog open={true} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Widget Settings</DialogTitle>
-          <Button variant="ghost" size="icon" className="absolute right-4 top-4" onClick={onClose}>
+          {/* <Button variant="ghost" size="icon" className="absolute right-4 top-4" onClick={onClose}>
             <X className="h-4 w-4" />
             <span className="sr-only">Close</span>
-          </Button>
+          </Button> */}
         </DialogHeader>
         <div className="p-4">
           <div className="mb-4">

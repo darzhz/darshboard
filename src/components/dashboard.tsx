@@ -1,36 +1,34 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 // import { Responsive, WidthProvider } from "react-grid-layout"
 
-import "react-grid-layout/css/styles.css"
-import "react-resizable/css/styles.css"
-import { Plus, Edit, Save } from "lucide-react"
+import "react-grid-layout/css/styles.css";
+import "react-resizable/css/styles.css";
+import { Plus, Edit, Save } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { KpiCard } from "@/components/widgets/kpi-card"
-import { MiniTrendGraph } from "@/components/widgets/mini-trend-graph"
-import { ConversionRate } from "@/components/widgets/conversion-rate"
-import { QuickNote } from "@/components/widgets/quick-note"
-import { QuoteOfTheDay } from "@/components/widgets/quote-of-the-day"
-import { RecentActivity } from "@/components/widgets/recent-activity"
-import Clock  from "@/components/widgets/clock"
+import { Button } from "@/components/ui/button";
+import { KpiCard } from "@/components/widgets/kpi-card";
+import { QuoteOfTheDay } from "@/components/widgets/quote-of-the-day";
+import { RecentActivity } from "@/components/widgets/recent-activity";
+import Clock from "@/components/widgets/clock";
 // const Clock :JSX.Element  = dynamic(()=> import("@/components/widgets/clock"),{ ssr: false });
-import { CalendarEvents } from "@/components/widgets/calendar-events"
-import { Weather } from "@/components/widgets/weather"
-import { TaskChecklist } from "@/components/widgets/task-checklist"
-import { SystemStatus } from "@/components/widgets/system-status"
-import { WidgetSelector } from "@/components/widget-selector"
-import { WidgetSettings } from "@/components/widget-settings"
-import { widget, WidgetInfo, widgetLayout } from "@/types/widgets"
-import dynamic from "next/dynamic"
-import type { ResponsiveProps } from "react-grid-layout";
-import { getLayout, upsertLayout } from "@/service/settings"
+import { CalendarEvents } from "@/components/widgets/calendar-events";
+import { Weather } from "@/components/widgets/weather";
+import { TaskChecklist } from "@/components/widgets/task-checklist";
+import { SystemStatus } from "@/components/widgets/system-status";
+import { WidgetSelector } from "@/components/widget-selector";
+import { WidgetSettings } from "@/components/widget-settings";
+import { widget, WidgetInfo, widgetLayout } from "@/types/widgets";
+import dynamic from "next/dynamic";
+import type {  ResponsiveProps } from "react-grid-layout";
+import { getLayout, upsertLayout } from "@/service/settings";
+import { Toaster } from "./ui/sonner";
+import { toast } from "sonner";
 const ResponsiveReactGridLayout = dynamic<ResponsiveProps>(
   () => import("@/components/ResponsiveGridLayout"),
   { ssr: false }
 );
-
 
 // Define widget types
 const widgetTypes: Record<string, React.FC<WidgetInfo>> = {
@@ -45,9 +43,7 @@ const widgetTypes: Record<string, React.FC<WidgetInfo>> = {
   weather: Weather,
   taskChecklist: TaskChecklist,
   systemStatus: SystemStatus,
-}
-
-
+};
 
 // Default layouts for different screen sizes
 const defaultLayouts: widgetLayout = {
@@ -63,7 +59,15 @@ const defaultLayouts: widgetLayout = {
       value: "₹1,24,000",
       icon: "trending-up",
     },
-    { i: "miniTrendGraph-1", x: 3, y: 0, w: 3, h: 2, type: "miniTrendGraph", title: "Daily Visitors" },
+    {
+      i: "miniTrendGraph-1",
+      x: 3,
+      y: 0,
+      w: 3,
+      h: 2,
+      type: "miniTrendGraph",
+      title: "Daily Visitors",
+    },
     {
       i: "conversionRate-1",
       x: 6,
@@ -76,7 +80,15 @@ const defaultLayouts: widgetLayout = {
       trend: "up",
       comparedTo: "last week",
     },
-    { i: "quickNote-1", x: 9, y: 0, w: 3, h: 2, type: "quickNote", content: "Meeting with team at 3 PM" },
+    {
+      i: "quickNote-1",
+      x: 9,
+      y: 0,
+      w: 3,
+      h: 2,
+      type: "quickNote",
+      content: "Meeting with team at 3 PM",
+    },
     { i: "quoteOfTheDay-1", x: 0, y: 2, w: 3, h: 2, type: "quoteOfTheDay" },
     { i: "recentActivity-1", x: 3, y: 2, w: 3, h: 2, type: "recentActivity" },
     { i: "clock-1", x: 6, y: 2, w: 3, h: 2, type: "clock" },
@@ -97,7 +109,15 @@ const defaultLayouts: widgetLayout = {
       value: "₹1,24,000",
       icon: "trending-up",
     },
-    { i: "miniTrendGraph-1", x: 3, y: 0, w: 3, h: 2, type: "miniTrendGraph", title: "Daily Visitors" },
+    {
+      i: "miniTrendGraph-1",
+      x: 3,
+      y: 0,
+      w: 3,
+      h: 2,
+      type: "miniTrendGraph",
+      title: "Daily Visitors",
+    },
     {
       i: "conversionRate-1",
       x: 0,
@@ -110,7 +130,15 @@ const defaultLayouts: widgetLayout = {
       trend: "up",
       comparedTo: "last week",
     },
-    { i: "quickNote-1", x: 3, y: 2, w: 3, h: 2, type: "quickNote", content: "Meeting with team at 3 PM" },
+    {
+      i: "quickNote-1",
+      x: 3,
+      y: 2,
+      w: 3,
+      h: 2,
+      type: "quickNote",
+      content: "Meeting with team at 3 PM",
+    },
     { i: "quoteOfTheDay-1", x: 0, y: 4, w: 3, h: 2, type: "quoteOfTheDay" },
     { i: "recentActivity-1", x: 3, y: 4, w: 3, h: 2, type: "recentActivity" },
     { i: "clock-1", x: 0, y: 6, w: 3, h: 2, type: "clock" },
@@ -131,7 +159,15 @@ const defaultLayouts: widgetLayout = {
       value: "₹1,24,000",
       icon: "trending-up",
     },
-    { i: "miniTrendGraph-1", x: 0, y: 2, w: 2, h: 2, type: "miniTrendGraph", title: "Daily Visitors" },
+    {
+      i: "miniTrendGraph-1",
+      x: 0,
+      y: 2,
+      w: 2,
+      h: 2,
+      type: "miniTrendGraph",
+      title: "Daily Visitors",
+    },
     {
       i: "conversionRate-1",
       x: 0,
@@ -144,7 +180,15 @@ const defaultLayouts: widgetLayout = {
       trend: "up",
       comparedTo: "last week",
     },
-    { i: "quickNote-1", x: 0, y: 6, w: 2, h: 2, type: "quickNote", content: "Meeting with team at 3 PM" },
+    {
+      i: "quickNote-1",
+      x: 0,
+      y: 6,
+      w: 2,
+      h: 2,
+      type: "quickNote",
+      content: "Meeting with team at 3 PM",
+    },
     { i: "quoteOfTheDay-1", x: 0, y: 8, w: 2, h: 2, type: "quoteOfTheDay" },
     { i: "recentActivity-1", x: 0, y: 10, w: 2, h: 2, type: "recentActivity" },
     { i: "clock-1", x: 0, y: 12, w: 2, h: 2, type: "clock" },
@@ -165,7 +209,15 @@ const defaultLayouts: widgetLayout = {
       value: "₹1,24,000",
       icon: "trending-up",
     },
-    { i: "miniTrendGraph-1", x: 0, y: 2, w: 1, h: 2, type: "miniTrendGraph", title: "Daily Visitors" },
+    {
+      i: "miniTrendGraph-1",
+      x: 0,
+      y: 2,
+      w: 1,
+      h: 2,
+      type: "miniTrendGraph",
+      title: "Daily Visitors",
+    },
     {
       i: "conversionRate-1",
       x: 0,
@@ -178,7 +230,15 @@ const defaultLayouts: widgetLayout = {
       trend: "up",
       comparedTo: "last week",
     },
-    { i: "quickNote-1", x: 0, y: 6, w: 1, h: 2, type: "quickNote", content: "Meeting with team at 3 PM" },
+    {
+      i: "quickNote-1",
+      x: 0,
+      y: 6,
+      w: 1,
+      h: 2,
+      type: "quickNote",
+      content: "Meeting with team at 3 PM",
+    },
     { i: "quoteOfTheDay-1", x: 0, y: 8, w: 1, h: 2, type: "quoteOfTheDay" },
     { i: "recentActivity-1", x: 0, y: 10, w: 1, h: 2, type: "recentActivity" },
     { i: "clock-1", x: 0, y: 12, w: 1, h: 2, type: "clock" },
@@ -187,91 +247,103 @@ const defaultLayouts: widgetLayout = {
     { i: "taskChecklist-1", x: 0, y: 18, w: 1, h: 2, type: "taskChecklist" },
     { i: "systemStatus-1", x: 0, y: 20, w: 1, h: 2, type: "systemStatus" },
   ],
-}
+};
 
 export default function Dashboard() {
-  const [layouts, setLayouts] = useState(() => {
+  const [layouts, setLayouts] = useState(defaultLayouts);
+  const [name,] = useState<string>(()=>{
     if (typeof window !== "undefined") {
-      const savedLayouts = localStorage.getItem("dashboard-layouts")
-      return savedLayouts ? JSON.parse(savedLayouts) : defaultLayouts
+      const savedName = sessionStorage.getItem("name");
+      return savedName ? savedName : "Darsh";
     }
-    return defaultLayouts
-  })
-
+    return "Darsh";
+  });
 
   const [widgets, setWidgets] = useState<widget[]>(() => {
-      if (typeof window !== "undefined") {
-        const savedWidgets = localStorage.getItem("dashboard-widgets")
-        return savedWidgets ? JSON.parse(savedWidgets) : layouts.lg
-      }
-      return layouts.lg
-    })
+    if (typeof window !== "undefined") {
+      const savedWidgets = localStorage.getItem("dashboard-widgets");
+      return savedWidgets ? JSON.parse(savedWidgets) : layouts.lg;
+    }
+    return layouts.lg;
+  });
 
-  const [showWidgetSelector, setShowWidgetSelector] = useState<boolean>(false)
-  const [selectedWidget, setSelectedWidget] = useState<widget|null>(null)
+  const [showWidgetSelector, setShowWidgetSelector] = useState<boolean>(false);
+  const [selectedWidget, setSelectedWidget] = useState<widget | null>(null);
   const [widgetOpacity, setWidgetOpacity] = useState(() => {
     if (typeof window !== "undefined") {
-      const savedOpacity = localStorage.getItem("widget-opacity")
-      return savedOpacity ? JSON.parse(savedOpacity) : {}
+      const savedOpacity = localStorage.getItem("widget-opacity");
+      return savedOpacity ? JSON.parse(savedOpacity) : {};
     }
-    return {}
-  })
+    return {};
+  });
 
   // Add edit mode state
   const [editMode, setEditMode] = useState(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("dashboard-edit-mode") === "true"
+      return localStorage.getItem("dashboard-edit-mode") === "true";
     }
-    return false
-  })
-  useEffect(()=>{
-    getLayoutFromCacheOrDb()
-  },[])
+    return false;
+  });
+  useEffect(() => {
+    getLayoutFromCacheOrDb();
+  }, []);
 
-  // #TODO MAKE THIS WOKR SOMEHOW
   const getLayoutFromCacheOrDb = async () => {
     if (typeof window !== "undefined") {
-      // const savedLayouts = localStorage.getItem("dashboard-layouts")
-      // if (savedLayouts) {
-      //   return JSON.parse(savedLayouts)
-      // }
-
+      const savedLayouts = localStorage.getItem("dashboard-layouts")
+      if (savedLayouts) {
+        console.log(JSON.parse(savedLayouts));
+        setLayouts(JSON.parse(savedLayouts));      
+      }
       try {
-        // const response = await fetch("/api/dashboard-layouts")
-        // const data = await response.json()
-        // localStorage.setItem("dashboard-layouts", JSON.stringify(data))
-        const responce = getLayout();
+        const responce = await getLayout();
+        if(responce?.data?.status === 200){
+          setLayouts(responce?.data?.data);
+          localStorage.setItem("dashboard-layouts", JSON.stringify(responce?.data?.data))
+        }
         console.log(responce);
       } catch (error) {
-        console.error(error)
-        return defaultLayouts
+        console.error(error);
+        toast.error("Error fetching layout switching to default layout");
       }
     }
-    return defaultLayouts
+  };
+
+  const saveOrUpdateLayoutToDb = async (layout: widgetLayout) => {
+    try {
+      const response = await upsertLayout(layout);
+      if(response?.data?.status === 200){
+        toast.success(response.data?.message);
+      }else{
+        toast.error(response?.data?.message);
+      }
+    }catch (error) {
+      console.error(error);
+    }
   }
 
-  useEffect(() => {
-    localStorage.setItem("dashboard-layouts", JSON.stringify(layouts))
-  }, [layouts])
 
   useEffect(() => {
-    localStorage.setItem("dashboard-widgets", JSON.stringify(widgets))
-  }, [widgets])
+    localStorage.setItem("dashboard-widgets", JSON.stringify(widgets));
+  }, [widgets]);
 
   useEffect(() => {
-    localStorage.setItem("widget-opacity", JSON.stringify(widgetOpacity))
-  }, [widgetOpacity])
+    localStorage.setItem("widget-opacity", JSON.stringify(widgetOpacity));
+  }, [widgetOpacity]);
 
   useEffect(() => {
-    localStorage.setItem("dashboard-edit-mode", editMode.toString())
-  }, [editMode])
+    localStorage.setItem("dashboard-edit-mode", editMode.toString());
+  }, [editMode]);
 
-  const handleLayoutChange = (currentLayout: widgetLayout, allLayouts: widgetLayout) => {
-    setLayouts(allLayouts)
-  }
+  const handleLayoutChange = (
+    currentLayout:  widget[],
+    allLayouts:  widgetLayout
+  ) => {
+    setLayouts(allLayouts as unknown as widgetLayout);
+  };
 
   const addWidget = (type: string) => {
-    const newId = `${type}-${Date.now()}`
+    const newId = `${type}-${Date.now()}`;
     const newWidget: widget = {
       i: newId,
       x: 0,
@@ -279,37 +351,49 @@ export default function Dashboard() {
       w: 3,
       h: 2,
       type,
-    }
+    };
 
-    setWidgets([...widgets, newWidget])
-    setShowWidgetSelector(false)
-  }
+    setWidgets([...widgets, newWidget]);
+    setShowWidgetSelector(false);
+  };
 
   const removeWidget = (id: string) => {
-    setWidgets(widgets.filter((widget: { i: string }) => widget.i !== id))
-  }
+    console.log("removeWidget",id);
+    setWidgets(widgets.filter((widget: { i: string }) => widget.i !== id));
+  };
 
-  const updateWidgetOpacity = (id: string, opacity: any) => {
+  const updateWidgetOpacity = (id: string, opacity: number) => {
     setWidgetOpacity({
       ...widgetOpacity,
       [id]: opacity.toString(),
-    })
-  }
+    });
+  };
 
   const toggleEditMode = () => {
-    setEditMode(!editMode)
-  }
+    setEditMode((prev) => {
+      if(prev){
+        saveOrUpdateLayoutToDb(layouts)
+        return false;
+      }else{
+        return true
+      }
+    });
+  };
 
   const renderWidget = (widget: widget) => {
-    const WidgetComponent = widgetTypes[widget?.type]
-    if (!WidgetComponent) return null
+    const WidgetComponent = widgetTypes[widget?.type];
+    if (!WidgetComponent) return null;
 
-    const opacity = widgetOpacity[widget?.i] || 1
+    const opacity = widgetOpacity[widget?.i] || 1;
 
     return (
-      <div key={widget.i} className={`relative ${editMode ? "widget-edit-mode" : ""}`} style={{ opacity }}>
+      <div
+        key={widget.i}
+        className={`relative ${editMode ? "widget-edit-mode" : ""}`}
+        style={{ opacity }}
+      >
         {editMode && (
-          <div className="absolute top-2 right-2 z-10 flex space-x-1">
+          <div className="absolute top-2 right-2 z-10 flex space-x-1 non-draggable">
             <Button
               variant="ghost"
               size="icon"
@@ -334,10 +418,10 @@ export default function Dashboard() {
             <Button
               variant="ghost"
               size="icon"
-              className="h-6 w-6 rounded-full bg-white/80 hover:bg-white"
+              className="h-6 w-6 rounded-full bg-white/80 hover:bg-white "
               onClick={(e) => {
-                e.stopPropagation()
-                removeWidget(widget.i)
+                e.stopPropagation();
+                removeWidget(widget.i);
               }}
             >
               <span className="sr-only">Remove</span>
@@ -358,26 +442,37 @@ export default function Dashboard() {
           </div>
         )}
         <div
-          className={`h-full w-full overflow-hidden rounded-lg bg-white p-4 shadow-md ${editMode ? "border-2 border-dashed border-[#6551F3]/40" : ""}`}
+          className={`h-full w-full overflow-hidden rounded-lg bg-white p-4 shadow-md ${
+            editMode ? "border-2 border-dashed border-[#6551F3]/40" : ""
+          }`}
         >
-          <WidgetComponent name={widgetTypes[widget.type].name} description={""} icon={""} />
+          <WidgetComponent
+            name={widgetTypes[widget.type].name}
+            description={""}
+            icon={""}
+          />
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className="px-6 mx-auto py-6  h-full flex-1  bg-white bg-[radial-gradient(#6551F3_1px,transparent_1px)] [background-size:16px_16px]">
+      <Toaster/>
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl  text-gray-900 font-extralight">Hey, Darsh</h1>
+        <h1 className="text-2xl  text-gray-900 font-extralight">Hey, {name}</h1>
         <div className="flex gap-2">
           <Button
             onClick={toggleEditMode}
-            className={`h-10 w-10 rounded-full ${editMode ? "bg-green-600 hover:bg-green-700" : "bg-[#6551F3]/40 hover:bg-[#5440e0]"}`}
+            className={`h-10 w-10 rounded-full ${
+              editMode
+                ? "bg-green-600 hover:bg-green-700"
+                : "bg-[#6551F3]/40 hover:bg-[#5440e0]"
+            }`}
           >
             {editMode ? (
               <>
-                <Save className=" h-4 w-4" />
+                <Save className=" h-4 w-4"/>
               </>
             ) : (
               <>
@@ -386,7 +481,10 @@ export default function Dashboard() {
             )}
           </Button>
           {editMode && (
-            <Button onClick={() => setShowWidgetSelector(true)} className="bg-[#6551F3] hover:bg-[#5440e0]">
+            <Button
+              onClick={() => setShowWidgetSelector(true)}
+              className="bg-[#6551F3] hover:bg-[#5440e0]"
+            >
               <Plus className="mr-2 h-4 w-4" />
               Add Widget
             </Button>
@@ -406,6 +504,7 @@ export default function Dashboard() {
         margin={[16, 16]}
         compactType="vertical"
         preventCollision={false}
+        draggableCancel=".non-draggable"
       >
         {widgets.map(renderWidget)}
       </ResponsiveReactGridLayout>
@@ -420,12 +519,13 @@ export default function Dashboard() {
 
       {selectedWidget && (
         <WidgetSettings
-          widget={selectedWidget}
-          opacity={widgetOpacity[selectedWidget.i] || 1}
+          opacity={widgetOpacity[selectedWidget.i] as number || 1}
           onClose={() => setSelectedWidget(null)}
-          onOpacityChange={(opacity: any) => updateWidgetOpacity(selectedWidget.i, opacity)}
+          onOpacityChange={(opacity: number) =>
+            updateWidgetOpacity(selectedWidget.i, opacity)
+          }
         />
       )}
     </div>
-  )
+  );
 }

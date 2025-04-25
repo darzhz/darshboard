@@ -101,7 +101,7 @@ export function WidgetSelector({ onClose, onSelect, widgetTypes }: WidgetSelecto
             />
           </div>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {filteredWidgets.map((type:any) => (
+            {filteredWidgets.map((type:string) => (
               <button
                 key={type}
                 className="flex items-start gap-3 rounded-lg border border-gray-200 p-3 text-left hover:bg-gray-50"

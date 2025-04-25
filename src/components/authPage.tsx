@@ -10,9 +10,12 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 import { useMediaQuery } from "@/hooks/use-mobile"
+import { Toaster } from "./ui/sonner"
+import { toast } from "sonner"
 
 export default function AuthPage() {
   const router = useRouter()
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [mode, setMode] = useState<"login" | "register">("login")
@@ -27,7 +30,7 @@ export default function AuthPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ name,email, password }),
       })
 
       if (res.ok) {
@@ -35,15 +38,16 @@ export default function AuthPage() {
         const data = await res.json()
         console.log(data);
         if(!data.token) {
-          alert("An error occurred. Please try again.")
+          toast.error("Invalid Token : please try again")
           return
         }
         sessionStorage.setItem('authToken', data?.token)
         sessionStorage.setItem('userId',data?.userId)
+        sessionStorage.setItem('name',data?.name)
         router.push("/dashboard")
       } else {
         const data = await res.json()
-        alert(data.error || "Something went wrong")
+        toast.error(data.error || "Something went wrong")
       }
     } catch  {
       alert("An error occurred. Please try again.")
@@ -62,7 +66,8 @@ export default function AuthPage() {
               <DashboardIllustration />
             </div>
             <p className="mt-6 max-w-md text-center text-gray-600">
-              Access your dashboard analytics and monitor your performance in real-time with our intuitive interface.
+              A dynamic, customizable, and funky baked dashboard for your
+               needs, created by Darsh S Kumar.
             </p>
           </div>
         </div>
@@ -70,6 +75,7 @@ export default function AuthPage() {
 
       {/* Auth Form Section */}
       <div className={cn("flex w-full flex-col items-center justify-center p-6 md:p-10", !isMobile && "w-1/2")}>
+        <Toaster />
         <div className="w-full max-w-md space-y-6">
           <div className="space-y-2 text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900">
@@ -83,6 +89,18 @@ export default function AuthPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+         {mode === "register" && <div className="space-y-2">
+              <Label htmlFor="email">Name</Label>
+              <Input
+                id="name"
+                type="text"
+                placeholder="Enter your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="border-gray-300 focus-visible:ring-[#6551F3]"
+              />
+            </div>}
+
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -99,18 +117,6 @@ export default function AuthPage() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
-                {mode === "login" && (
-                  <Button
-                    variant="link"
-                    className="h-auto p-0 text-xs text-[#6551F3]"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      alert("Password reset functionality would go here")
-                    }}
-                  >
-                    Forgot password?
-                  </Button>
-                )}
               </div>
               <div className="relative">
                 <Input
