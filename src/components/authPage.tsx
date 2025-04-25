@@ -31,12 +31,21 @@ export default function AuthPage() {
       })
 
       if (res.ok) {
+        // get token
+        const data = await res.json()
+        console.log(data);
+        if(!data.token) {
+          alert("An error occurred. Please try again.")
+          return
+        }
+        sessionStorage.setItem('authToken', data?.token)
+        sessionStorage.setItem('userId',data?.userId)
         router.push("/dashboard")
       } else {
         const data = await res.json()
         alert(data.error || "Something went wrong")
       }
-    } catch (error) {
+    } catch  {
       alert("An error occurred. Please try again.")
     }
   }
@@ -48,7 +57,7 @@ export default function AuthPage() {
         <div className="hidden w-1/2 flex-col items-center justify-center bg-[#F7F5FE] p-10 md:flex">
           <div className="flex flex-col items-center justify-center">
             <LucideLayoutDashboard className="mb-4 h-16 w-16 text-[#6551F3]" />
-            <h1 className="mb-6 text-3xl font-bold text-gray-900">Dashboard Analytics</h1>
+            <h1 className="mb-6 text-3xl font-bold text-gray-900">DarshBoard</h1>
             <div className="relative h-[400px] w-full max-w-md">
               <DashboardIllustration />
             </div>

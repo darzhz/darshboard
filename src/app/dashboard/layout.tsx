@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
-import './globals.css'
-import { CustomSidebar } from '@/components/ui/customsidebar'
+import '@/app/globals.css'
 import ClientLayout from './clientlayout'
 
 export const metadata: Metadata = {

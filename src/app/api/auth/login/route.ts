@@ -16,5 +16,16 @@ export async function POST(req: Request) {
   if (!valid) return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
 
   const token = signToken({ userId: user.id });
-  return NextResponse.json({ token });
+  const response =   NextResponse.json({ token,userId:user?.id });
+  response.cookies.set({
+    name: 'authToken',
+    value: token,
+    path: '/',
+    httpOnly: true, // for security
+    secure: process.env.NODE_ENV === 'development',
+    sameSite: 'lax',
+    maxAge: 60 * 60 * 24 * 7 // 7 days
+  })
+
+  return response
 }

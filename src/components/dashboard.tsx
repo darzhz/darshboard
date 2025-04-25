@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, ReactNode, JSX, SetStateAction } from "react"
+import { useState, useEffect } from "react"
 // import { Responsive, WidthProvider } from "react-grid-layout"
 
 import "react-grid-layout/css/styles.css"
@@ -25,6 +25,7 @@ import { WidgetSettings } from "@/components/widget-settings"
 import { widget, WidgetInfo, widgetLayout } from "@/types/widgets"
 import dynamic from "next/dynamic"
 import type { ResponsiveProps } from "react-grid-layout";
+import { getLayout, upsertLayout } from "@/service/settings"
 const ResponsiveReactGridLayout = dynamic<ResponsiveProps>(
   () => import("@/components/ResponsiveGridLayout"),
   { ssr: false }
@@ -197,6 +198,7 @@ export default function Dashboard() {
     return defaultLayouts
   })
 
+
   const [widgets, setWidgets] = useState<widget[]>(() => {
       if (typeof window !== "undefined") {
         const savedWidgets = localStorage.getItem("dashboard-widgets")
@@ -222,6 +224,31 @@ export default function Dashboard() {
     }
     return false
   })
+  useEffect(()=>{
+    getLayoutFromCacheOrDb()
+  },[])
+
+  // #TODO MAKE THIS WOKR SOMEHOW
+  const getLayoutFromCacheOrDb = async () => {
+    if (typeof window !== "undefined") {
+      // const savedLayouts = localStorage.getItem("dashboard-layouts")
+      // if (savedLayouts) {
+      //   return JSON.parse(savedLayouts)
+      // }
+
+      try {
+        // const response = await fetch("/api/dashboard-layouts")
+        // const data = await response.json()
+        // localStorage.setItem("dashboard-layouts", JSON.stringify(data))
+        const responce = getLayout();
+        console.log(responce);
+      } catch (error) {
+        console.error(error)
+        return defaultLayouts
+      }
+    }
+    return defaultLayouts
+  }
 
   useEffect(() => {
     localStorage.setItem("dashboard-layouts", JSON.stringify(layouts))
@@ -239,7 +266,7 @@ export default function Dashboard() {
     localStorage.setItem("dashboard-edit-mode", editMode.toString())
   }, [editMode])
 
-  const handleLayoutChange = (currentLayout: any, allLayouts: any) => {
+  const handleLayoutChange = (currentLayout: widgetLayout, allLayouts: widgetLayout) => {
     setLayouts(allLayouts)
   }
 
@@ -258,11 +285,11 @@ export default function Dashboard() {
     setShowWidgetSelector(false)
   }
 
-  const removeWidget = (id: any) => {
-    setWidgets(widgets.filter((widget: { i: any }) => widget.i !== id))
+  const removeWidget = (id: string) => {
+    setWidgets(widgets.filter((widget: { i: string }) => widget.i !== id))
   }
 
-  const updateWidgetOpacity = (id: any, opacity: any) => {
+  const updateWidgetOpacity = (id: string, opacity: any) => {
     setWidgetOpacity({
       ...widgetOpacity,
       [id]: opacity.toString(),
