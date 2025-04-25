@@ -1,4 +1,3 @@
-```md
 # 🧩 Customizable Dashboard
 
 A customizable dashboard built with **Next.js**, **React Grid Layout**, and **Drizzle ORM**. Add, move, resize, and persist widgets effortlessly — perfect for admin panels, analytics dashboards, or internal tools.
@@ -97,6 +96,5 @@ Built with 💙 by [Darsh Shyam Kumar](https://github.com/darzhz)
 
 Pull requests, bug reports, and feature suggestions are welcome!
 
-```
 
 ---
