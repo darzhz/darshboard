@@ -1,8 +1,9 @@
 # 🧩 Customizable Dashboard
 
 A highly flexible dashboard built with **Next.js**, **React Grid Layout**, and **Drizzle ORM**. Add, move, resize, and persist widgets effortlessly — perfect for admin panels, analytics dashboards, or internal tools.
-<p align="center"> <img src="https://img.shields.io/badge/Next.js-13+-000?logo=next.js&logoColor=white" alt="Next.js Badge" /> <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black" alt="React Badge" /> <img src="https://img.shields.io/badge/Tailwind_CSS-2dd4bf?logo=tailwindcss&logoColor=white" alt="Tailwind CSS Badge" /> <img src="https://img.shields.io/badge/Drizzle%20ORM-ff9900?logo=sequelize&logoColor=white" alt="Drizzle ORM Badge" /> <img src="https://img.shields.io/badge/PostgreSQL-4169e1?logo=postgresql&logoColor=white" alt="PostgreSQL Badge" /> <img src="https://img.shields.io/github/license/darzhz/darshboard?style=flat-square" alt="License Badge" /> </p>
 ![Dashboard Preview](./public/preview.png)
+
+<p align="center"> <img src="https://img.shields.io/badge/Next.js-13+-000?logo=next.js&logoColor=white" alt="Next.js Badge" /> <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black" alt="React Badge" /> <img src="https://img.shields.io/badge/Tailwind_CSS-2dd4bf?logo=tailwindcss&logoColor=white" alt="Tailwind CSS Badge" /> <img src="https://img.shields.io/badge/Drizzle%20ORM-ff9900?logo=sequelize&logoColor=white" alt="Drizzle ORM Badge" /> <img src="https://img.shields.io/badge/PostgreSQL-4169e1?logo=postgresql&logoColor=white" alt="PostgreSQL Badge" /> <img src="https://img.shields.io/github/license/darzhz/darshboard?style=flat-square" alt="License Badge" /> </p>
 
 ---
 
