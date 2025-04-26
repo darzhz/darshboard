@@ -79,13 +79,20 @@ cd darshboard
 ```
 
 ### 2. Install Dependencies
+We are using **React 19**, which is still quite new.Because of this, if you run a simple `npm i`, you might encounter some dependency errors.  
+To fix it, you can install dependencies by running either:
 
 ```bash
-npm install
-# or
-yarn install
+npm i --force
+```
+or
+```bash
+npm i --legacy-peer-deps
 ```
 
+This forces npm to bypass or relax strict version checks so that everything installs smoothly.
+
+---
 ### 3. Configure the Database
 
 Create a `.env` file in the root:
