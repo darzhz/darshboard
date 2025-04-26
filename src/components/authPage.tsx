@@ -44,6 +44,10 @@ export default function AuthPage() {
         sessionStorage.setItem('authToken', data?.token)
         sessionStorage.setItem('userId',data?.userId)
         sessionStorage.setItem('name',data?.name)
+        if(mode === "register") {
+          toast.success("Account created successfully")
+          setMode("login");
+        }
         router.push("/dashboard")
       } else {
         const data = await res.json()
