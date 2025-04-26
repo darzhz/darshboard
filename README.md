@@ -9,7 +9,7 @@ A customizable dashboard built with **Next.js**, **React Grid Layout**, and **Dr
 ## ✨ Features
 
 - 🛠 Drag-and-drop, resizable widgets using React Grid Layout
-- ⚙️ Server-side rendered with Next.js
+- ⚙️ JWT Token based Auth
 - 💾 Persistent layouts stored using Drizzle ORM
 - 🔌 Easy to extend with new widgets
 - 🎨 Tailwind CSS for rapid UI customization
